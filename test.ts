@@ -39,3 +39,11 @@ test('multicast', async () => {
     assert.strictEqual(call, 3)
   })
 })
+
+test('type-level, should return Observable', async () => {
+  dirx(
+    // @ts-expect-error
+    arr => arr,
+    () => [1, 2, 3]
+  )
+})
