@@ -47,3 +47,15 @@ test('type-level, should return Observable', async () => {
     () => [1, 2, 3]
   )
 })
+
+test('raw', async () => {
+  await diInit(async () => {
+    const incNumbers$ = dirx(
+      arr => from(arr).pipe(map(n => n + 1)),
+      () => [1, 2, 3]
+    )
+
+    const resp = await lastValueFrom(incNumbers$.raw([-2, -1, 0]))
+    assert.strictEqual(resp, 1)
+  })
+})

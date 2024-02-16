@@ -87,5 +87,7 @@ export function dirx<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R extends Observab
   fn10: (...args: any[]) => T10
 ): (() => R) & { raw: (x1: T1, x2: T2, x3: T3, x4: T4, x5: T5, x6: T6, x7: T7, x8: T8, x9: T9, x10: T10) => R }
 export function dirx(pred: (...args: unknown[]) => Observable<unknown>, ...fns: (() => unknown)[]) {
-  return diOnce(diMap((...args) => pred(...args).pipe(share()), ...(fns as [() => unknown])))
+  return Object.assign(diOnce(diMap((...args) => pred(...args).pipe(share()), ...(fns as [() => unknown]))), {
+    raw: pred,
+  })
 }
